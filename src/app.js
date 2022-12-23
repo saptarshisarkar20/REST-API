@@ -88,6 +88,23 @@ app.get("/students/:name", async (req, res) => {
     }
 });
 
+//* UPDATE STUDENTS DATA USING PATCH REQUEST
+app.patch("/students/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const studentUpdate = await Student.findByIdAndUpdate(
+            { _id: id },
+            req.body,
+            { new: true }
+        );
+
+        res.send(studentUpdate);
+    } catch (error) {
+        res.status(404).send(error);
+    }
+});
+
 //* DELETE STUDENTS BY ID
 app.delete("/students/:id", async (req, res) => {
     try {
